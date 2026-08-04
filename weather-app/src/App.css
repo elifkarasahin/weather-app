@@ -5,95 +5,101 @@
 }
 
 body{
-
     font-family:Arial, Helvetica, sans-serif;
+    min-height:100vh;
 
     background:linear-gradient(
         135deg,
-        #5fa8ff,
-        #9fd3ff
+        #5fa8ff 0%,
+        #8dc8ff 45%,
+        #b8e2ff 100%
     );
-
-    min-height:100vh;
-
 }
 
 .app{
-
     width:100%;
-
     min-height:100vh;
 
-    padding:40px 80px;
-
+    padding:40px 70px;
 }
 
+/* HEADER */
+
 .header{
-
     text-align:center;
-
-    color:white;
-
-    margin-bottom:50px;
-
+    margin-bottom:55px;
 }
 
 .header h1{
-
-    font-size:52px;
-
-    margin-bottom:10px;
-
+    color:#111;
+    font-size:58px;
+    font-weight:700;
+    margin-bottom:8px;
 }
 
 .header p{
-
+    color:white;
     font-size:20px;
-
     opacity:.9;
-
 }
+
+/* CARD */
 
 .weather-card{
 
     width:100%;
-
     max-width:900px;
 
-    margin:auto;
+    margin:0 auto;
 
-    background:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.20);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
 
-    border-radius:30px;
+    border-radius:28px;
 
-    padding:60px;
+    padding:55px;
 
-    color:white;
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.12);
 
     text-align:center;
-
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
-
 }
+
+/* Şehir */
 
 .weather-card h2{
 
+    color:#222;
+
     font-size:42px;
 
+    margin-bottom:18px;
+
 }
+
+/* Sıcaklık */
 
 .weather-card h3{
 
-    font-size:90px;
+    color:white;
 
-    margin:20px 0;
+    font-size:92px;
+
+    line-height:1;
+
+    margin-bottom:20px;
 
 }
 
+/* Açıklama */
+
 .weather-card p{
 
-    font-size:24px;
+    color:white;
+
+    font-size:26px;
+
+    opacity:.95;
 
 }
