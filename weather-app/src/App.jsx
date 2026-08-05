@@ -11,7 +11,15 @@ function App() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    console.log("Component ilk kez açıldı.");
+    fetch(
+      "https://api.open-meteo.com/v1/forecast?latitude=38.41273&longitude=27.13838&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code"
+    )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      setWeather(data);
+    });
   }, []);
 
   return (

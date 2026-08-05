@@ -5,7 +5,7 @@ export default function WeatherCard({ weather, sehir }) {
     <section className="weather-card">
 
       <h2>{sehir}</h2>
-
+      
       <h3>--°C</h3>
 
       <p>Henüz veri yok.</p>
