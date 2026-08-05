@@ -11,15 +11,22 @@ function App() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=38.41273&longitude=27.13838&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code"
-    )
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
 
-      setWeather(data);
-    });
+    async function havaDurumunuGetir() {
+
+      const response = await fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=38.41273&longitude=27.13838&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code"
+    
+      );
+    
+    const data = await response.json();
+    
+    console.log(data);
+
+    setWeather(data);
+    }
+  havaDurumunuGetir();
+  
   }, []);
 
   return (
