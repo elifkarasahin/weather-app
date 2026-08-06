@@ -33,14 +33,35 @@ export default function WeatherCard({ weather, sehir, loading, error }) {
     </section>
   );
   }
+
+  const theme = weather ? weather.theme : "";
+
   return (
-    <section className="weather-card">
+      <section className={`weather-card ${theme}`}>
 
       <h2>{sehir}</h2>
 
-      <h3>{weather.current.temperature_2m}°C</h3>
+      <h3>{weather.temperature}°C</h3>
 
-      <p>☀️ Güncel hava durumu</p>
+      <p>{weather.weatherIcon} {weather.weatherText}</p>
+
+      <div className="weather-details">
+
+        <div className="detail-card">
+          <h4>🌡️ Hissedilen</h4>
+          <p>{weather.feelsLike}°C</p>
+        </div>
+
+        <div className="detail-card">
+          <h4>💧 Nem</h4>
+          <p>%{weather.humidity}</p>
+        </div>
+
+        <div className="detail-card">
+          <h4>💨 Rüzgar</h4>
+          <p>{weather.wind} km/h</p>
+        </div>
+      </div>
     </section>
   );
 
