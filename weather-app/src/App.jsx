@@ -111,6 +111,7 @@ function App() {
     latitude: 38.4237,
     longitude: 27.1428,
   })
+  const [recentCities, setRecentCities] = useState([]);
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -146,9 +147,20 @@ function App() {
   weatherText: weatherInfo.text,
   weatherIcon: weatherInfo.icon,
   theme: weatherInfo.theme,
+
+  cityName: selectedCity.name,
 };
 
 setWeather(weatherData);
+setRecentCities((prev) => {
+
+  const filtered = prev.filter(
+    (item) => item.cityName !== weatherData.cityName
+  );
+
+  return [weatherData, ...filtered].slice(0, 5);
+
+});
     } catch (error) {
       setError(error);
     }finally {
@@ -159,23 +171,78 @@ setWeather(weatherData);
   
   }, [selectedCity]);
 
+  function handleSelectCity(city) {
+    setSelectedCity(city);
+    
+  }
+
   return (
-    <div className="app">
-      <Header />
+  <div className="app">
 
-      <SearchBar 
+    <Header />
+
+    <SearchBar
       cities={cities}
-      onSelectCity={setSelectedCity}
-      />
+      onSelectCity={handleSelectCity}
+    />
 
-      <WeatherCard 
+    <div className="weather-layout">
+
+      <aside className="left-panel">
+  <h2>Son Arananlar</h2>
+
+  {recentCities.map((city) => (
+
+  <div
+    key={city.cityName}
+    className="recent-city"
+    onClick={() =>
+      setSelectedCity(
+        cities.find(
+          (c) => c.name === city.cityName
+        )
+      )
+    }
+  >
+
+    <span>
+      {city.weatherIcon} {city.cityName}
+    </span>
+
+    <strong>
+      {city.temperature}°
+    </strong>
+
+  </div>
+
+))}
+</aside>
+
+      <main className="center-panel">
+
+  <div className="weather-card-wrapper">
+
+    <WeatherCard
       weather={weather}
       sehir={selectedCity.name}
       loading={loading}
       error={error}
-      />
+    />
+
+  </div>
+
+</main>
+
+      <aside className="right-panel">
+
+        <h2>5 Günlük Tahmin</h2>
+
+      </aside>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default App;
