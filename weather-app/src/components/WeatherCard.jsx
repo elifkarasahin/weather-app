@@ -1,4 +1,24 @@
-export default function WeatherCard({ weather, sehir }) {
+export default function WeatherCard({ weather, sehir, loading, error }) {
+
+  if (loading) {
+    return(
+      <section className="weather-card">
+        <h2>{sehir}</h2>
+        <h3>⏳</h3>
+        <p>Hava durumu yükleniyor...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="weather-card">
+        <h2>{sehir}</h2>
+        <h3>❌</h3>
+        <p>{error.message}</p>
+      </section>
+    );
+  }
 
   if (!weather) {
   return (
