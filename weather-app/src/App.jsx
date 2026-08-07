@@ -106,19 +106,37 @@ function App() {
 
 }
 
-  const [selectedCity, setSelectedCity] = useState({
+  const [selectedCity, setSelectedCity] = useState(() => {
+
+  const savedCity = localStorage.getItem("selectedCity");
+
+  if (savedCity) {
+    return JSON.parse(savedCity);
+  }
+
+  return {
     name: "İzmir",
     latitude: 38.4237,
     longitude: 27.1428,
-  })
-  const [recentCities, setRecentCities] = useState([]);
+  };
+
+});
+  const [recentCities, setRecentCities] = useState(() => {
+    const savedCities = localStorage.getItem("recentCities");
+
+    return savedCities ? JSON.parse(savedCities) : [];
+  });
   const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
 
     async function havaDurumunuGetir() {
+
+      setLoading(true);
+      setError(null);
+
 
       try {
 
@@ -130,7 +148,7 @@ function App() {
         throw new Error("Hava durumu alınamadı.");
       }
 
-    
+      
     const data = await response.json();
 
     const weatherInfo = havaDurumuBilgisi(
@@ -171,9 +189,38 @@ setRecentCities((prev) => {
   
   }, [selectedCity]);
 
+  useEffect(() => {
+        localStorage.setItem(
+          "recentCities",
+          JSON.stringify(recentCities)
+        );
+      }, [recentCities]);
+
   function handleSelectCity(city) {
     setSelectedCity(city);
     
+    
+    localStorage.setItem(
+    "selectedCity",
+    JSON.stringify(city)
+  );
+  }
+
+  function handleRecentCityClick(cityName) {
+
+    const selected = cities.find(
+      (city) => city.name === cityName
+    );
+
+    if (!selected) return;
+
+    setSelectedCity(selected);
+
+    localStorage.setItem(
+      "selectedCity",
+      JSON.stringify(selected)
+    );
+
   }
 
   return (
@@ -197,13 +244,9 @@ setRecentCities((prev) => {
     key={city.cityName}
     className="recent-city"
     onClick={() =>
-      setSelectedCity(
-        cities.find(
-          (c) => c.name === city.cityName
-        )
-      )
-    }
-  >
+                handleRecentCityClick(city.cityName)
+              }
+            >
 
     <span>
       {city.weatherIcon} {city.cityName}

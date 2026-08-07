@@ -34,7 +34,7 @@ export default function WeatherCard({ weather, sehir, loading, error }) {
   );
   }
 
-  const theme = weather ? weather.theme : "";
+  const theme = weather.theme;
 
   return (
       <section className={`weather-card ${theme}`}>
