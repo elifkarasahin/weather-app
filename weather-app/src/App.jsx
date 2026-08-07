@@ -229,7 +229,7 @@ setRecentCities((prev) => {
     <Header />
 
     <SearchBar
-      cities={cities}
+      
       onSelectCity={handleSelectCity}
     />
 
